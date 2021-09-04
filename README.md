@@ -1,6 +1,6 @@
 # RA Report Automation
 
-Python project for automation of writing RA report.\n
+Python project for automation of writing RA report.
 21F RA report: https://docs.google.com/forms/d/e/1FAIpQLSfNkJ-7hAAs9hug1T1v-OyIw1ioC-of0V1PpEs6xE9GWL_O8A/viewform
 
 ## Requirements
@@ -37,7 +37,7 @@ $ pip3 install -r requirements.txt
 
 ### Edit Configs in Source Code
 
-Open `main.py` and change `CONFIGS` part into your info
+Open `main.py` and change `'''CONFIGS'''` part into your info
 
 ## Run
 
@@ -53,3 +53,8 @@ or
 ```bash
 $ python3 main.py
 ```
+
+## Copyright
+
+Copyright (C) 2021, Kyungbae Min <kyungbae.min@stonybrook.edu>
+Code released under the [MIT]() license.
