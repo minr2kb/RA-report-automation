@@ -5,8 +5,8 @@ Python project for automation of writing RA report.
 
 ## Requirements
 
--   python 3.x
--   Chrome browser
+-   python 3.x[(download)](https://www.python.org/downloads/)
+-   Chrome browser[(download)](https://www.google.co.kr/chrome/?brand=QCDH&gclid=Cj0KCQjwssyJBhDXARIsAK98ITSvuMEL3PWOhue2Wq2ZZEu_DwaV3RXTO1m95CuMvyNoFMLk3QdS5uIaAgXoEALw_wcB&gclsrc=aw.ds)
 -   chromedriver[(download)](https://chromedriver.chromium.org/downloads) - Check your chrome version and OS.
 
 ## Quick Start
