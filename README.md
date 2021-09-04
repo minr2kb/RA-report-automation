@@ -21,7 +21,7 @@ $ git clone https://github.com/minr2kb/RA-report-automation.git
 
 or
 
-Download .zip file manually
+Download [.zip](https://github.com/minr2kb/RA-report-automation/archive/refs/heads/master.zip) file manually
 
 ### Packages Installation
 
@@ -57,4 +57,4 @@ $ python3 main.py
 ## Copyright
 
 Copyright (C) 2021, Kyungbae Min <kyungbae.min@stonybrook.edu>
-Code released under the [MIT](https://github.com/minr2kb/RA-report-automation/blob/master/LICENSE) license.
+Code released under the [MIT license](https://github.com/minr2kb/RA-report-automation/blob/master/LICENSE).
