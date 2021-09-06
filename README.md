@@ -25,11 +25,13 @@ Download [.zip](https://github.com/minr2kb/RA-report-automation/archive/refs/hea
 
 ### Packages Installation
 
+Windows
+
 ```bash
 $ pip install -r requirements.txt
 ```
 
-or
+Mac or Linux
 
 ```bash
 $ pip3 install -r requirements.txt
@@ -44,11 +46,13 @@ Open `main.py` and change `'''CONFIGS'''` part into your info
 1. Open terminal or cmd at the source directory '/ra-report-automation'
 2. Run main.py
 
+Windows
+
 ```bash
-$ python main.py
+$ python main_win.py
 ```
 
-or
+Mac or Linux
 
 ```bash
 $ python3 main.py

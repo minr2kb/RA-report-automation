@@ -47,29 +47,57 @@ feelings = {"Happy":0, "Excited":1, "Hopeful":2, "Confident":3, "Bored":4, "Exha
 def print_result(category, value):
     return print(DEFAULT + category+ ":" + BLUE, value)
 
-def nonempty_freetext(question):
-    result = enquiries.freetext(question)
+def freetext(question):
+    result = input(question)
     while len(result) == 0:
-        result = enquiries.freetext(question)
+        result = input(question)
     return result
 
+def choose_one(question, lst):
+    dic={}
+    for i in range(1, len(lst)+1):
+        dic.setdefault(str(i), list(lst)[i-1])
+    print(question)
+    for k, v in dic.items():
+        print(" "+ k + '. ' + v)
+    result = input("Enter the number: ")
+    while result not in dic.keys():
+        result = input("Enter the number(again): ")
+    return dic[result]
 
-"""MAIN LOOP"""
+def confirm(question, default=False):
+    print(question, end='')
+    result = default
+    if default:
+        ans = input('[Y/n]')
+        if ans.lower() == 'n':
+            result=False
+    else:
+        ans = input('[y/N]')
+        if ans.lower() == 'y':
+            result=True
+    print(result)
+    return result
 
-while True:
+def clear():
     # Clear prompt
     if platform.system() == "Windows":
         os.system('cls')
     else:
         os.system('clear')
     print(DIM+"Copyright (C) 2021, Kyungbae Min <kyungbae.min@stonybrook.edu>"+DEFAULT)
+    
 
+"""MAIN LOOP"""
+
+while True:
     # Duty type
-    duty_type = enquiries.choose('Choose duty-type: ', duty_types.keys())
+    clear()
+    duty_type = choose_one('Choose duty-type: ', duty_types.keys())
 
     # Duty date
     if duty_dates[duty_type] == "":
-        duty_date = enquiries.choose('Choose duty-date: ', dates.keys())
+        duty_date = choose_one('Choose duty-date: ', dates.keys())
     else:
         duty_date = duty_dates[duty_type]
     report_date = datetime.today() - timedelta(days=(datetime.today().weekday()-dates[duty_date]))
@@ -79,52 +107,61 @@ while True:
     day = '{0:02d}'.format(report_date.day)
 
     # Phone duty
-    phone_duty = enquiries.confirm("Phone duty?")
+    clear()
+    phone_duty = confirm("Phone duty?")
 
     # Resident info
+    clear()
     if duty_type == "Staying":
-        resident1_info = nonempty_freetext('Resident #1: ')       
-        resident2_info = nonempty_freetext('Resident #2: ')
+        resident1_info = freetext('Resident #1: ')   
+        clear()    
+        resident2_info = freetext('Resident #2: ')
     else:
         resident1_info = duty_type
         resident2_info = duty_type
     
     # Resident issue
-    if enquiries.confirm("Issue about residents?"):
-        resident_issue = nonempty_freetext('Details about issue: ')
+    clear()
+    if confirm("Issue about residents?"):
+        resident_issue = freetext('Details about issue: ')
     else:
         resident_issue = 'N/A'
 
     # Committee event
+    clear()
     if len(commitee_events[commitee]) > 0:
-        commitee_event = enquiries.choose('Choose upcoming committee event('+commitee+'): ', commitee_events[commitee])
+        commitee_event = choose_one('Choose upcoming committee event('+commitee+'): ', commitee_events[commitee])
     else:
-        commitee_event = nonempty_freetext('Provide upcoming committee event('+commitee+'): ')
+        commitee_event = freetext('Provide upcoming committee event('+commitee+'): ')
 
     # Committee event progress
-    event_progress = nonempty_freetext("Current progress of preparation for the event: ")
+    event_progress = freetext("Current progress of preparation for the event: ")
 
     # Committee event issue
-    if enquiries.confirm("Any issues on event preparation process?"):
-        event_issue = nonempty_freetext("Details(event preparation issues): ")
+    clear()
+    if confirm("Any issues on event preparation process?"):
+        event_issue = freetext("Details(event preparation issues): ")
     else:
         event_issue = "Everything is okay:)"
 
     # Maintenance issue
-    maintenance_issue = enquiries.confirm("Any maintenance issues?")
+    clear()
+    maintenance_issue = confirm("Any maintenance issues?")
 
     # Maintenance detail
     if maintenance_issue:
-        maintenance_detail = nonempty_freetext("Details(maintenance issues): ")
+        maintenance_detail = freetext("Details(maintenance issues): ")
     else:
         maintenance_detail = "N/A"
     
     # Feeling
-    feeling = enquiries.choose('Your feeling on duty day: ', feelings.keys() ,multi=True)
+    clear()
+    feeling = [choose_one('Your feeling on duty day: ', feelings.keys())]
     while len(feeling) == 0:
-        feeling = enquiries.choose('Your feeling on duty day: ', feelings.keys() ,multi=True)
+        feeling = [choose_one('Your feeling on duty day: ', feelings.keys())]
  
     # Result print
+    clear()
     print(DEFAULT + "=============== Your Responses ===============")
     print_result("Name", name)
     print_result("Floor", floor)
@@ -145,7 +182,7 @@ while True:
     print_result("Feelings", feeling)
     print(DEFAULT+"==============================================")
     
-    if enquiries.confirm("Continue?", default = True):
+    if confirm("Continue?", default = True):
         break
 
 
