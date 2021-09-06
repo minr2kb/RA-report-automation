@@ -31,8 +31,6 @@ Windows
 $ pip install -r requirements.txt
 ```
 
-or execute 'window_exe.bat'
-
 Mac or Linux
 
 ```bash
@@ -53,6 +51,8 @@ Windows
 ```bash
 $ python main_win.py
 ```
+
+or execute 'window_exe.bat'
 
 Mac or Linux
 
