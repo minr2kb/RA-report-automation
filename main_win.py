@@ -3,7 +3,6 @@
 from selenium import webdriver
 from datetime import datetime, timedelta
 import time
-import enquiries
 import os
 import platform
 
