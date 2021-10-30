@@ -10,6 +10,7 @@ import platform
 """CONFIGS"""
 
 # Basic Info
+email="kyungbae.min@stonybrook.edu"
 name = "Kyungbae Min"
 floor = "C17"
 commitee = "Snapshot" # "IGC Committee", "Hangout", "Pop Up", "Re-Building"
@@ -81,19 +82,8 @@ while True:
     # Phone duty
     phone_duty = enquiries.confirm("Phone duty?")
 
-    # Resident info
-    if duty_type == "Staying":
-        resident1_info = nonempty_freetext('Resident #1: ')       
-        resident2_info = nonempty_freetext('Resident #2: ')
-    else:
-        resident1_info = duty_type
-        resident2_info = duty_type
-    
-    # Resident issue
-    if enquiries.confirm("Issue about residents?"):
-        resident_issue = nonempty_freetext('Details about issue: ')
-    else:
-        resident_issue = 'N/A'
+    # Community Building
+    resident_info = nonempty_freetext('Info about residents: ')
 
     # Committee event
     if len(commitee_events[commitee]) > 0:
@@ -126,15 +116,14 @@ while True:
  
     # Result print
     print(DEFAULT + "=============== Your Responses ===============")
+    print_result("E-mail", email)
     print_result("Name", name)
     print_result("Floor", floor)
     print_result("Duty type",duty_type)
     print_result("Date", year + "/" + month + "/" + day + "(" + duty_date + ")")
     print_result("Time", duty_time[duty_type]["start_hour"] + ":00 "+duty_time[duty_type]["start_meridiem"]+" ~ " + duty_time[duty_type]["end_hour"] + ":00 "+duty_time[duty_type]["end_meridiem"])
     print()
-    print_result("Resident #1", resident1_info)
-    print_result("Resident #2", resident2_info)
-    print_result("Issue about residents", resident_issue)
+    print_result("Info about residents", resident_info)
     print()
     print_result("Committee", commitee)
     print_result("Upcoming event", commitee_event)
@@ -156,73 +145,73 @@ driver = webdriver.Chrome("./chromedriver")
 driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfNkJ-7hAAs9hug1T1v-OyIw1ioC-of0V1PpEs6xE9GWL_O8A/viewform")
 time.sleep(1)
 start = time.time()
+# E-mail
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div[1]/div[2]/div[1]/div/div[1]/input').send_keys(email)
 
 # Name
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input').send_keys(name)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input').send_keys(name)
 
 # Floor
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[1]/div[1]').click()
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]').click()
 time.sleep(delay)
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div['+str(dorm_id[floor])+']').click()
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[2]/div['+str(dorm_id[floor])+']').click()
 time.sleep(delay)
 
 # Date
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input').send_keys(year+month+day)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input').send_keys(year+month+day)
 
 # Start time
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input').send_keys(duty_time[duty_type]["start_hour"])
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[3]/div/div[1]/div/div[1]/input').send_keys('00')
-if duty_time[duty_type]["start_meridiem"]=='PM':
-    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[4]/div[1]/div[1]/div[1]').click()
-    time.sleep(delay)
-    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[4]/div[2]/div[2]').click()
-    time.sleep(delay)
-
-#End time
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input').send_keys(duty_time[duty_type]["end_hour"])
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input').send_keys(duty_time[duty_type]["start_hour"])
 driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[3]/div/div[1]/div/div[1]/input').send_keys('00')
-if duty_time[duty_type]["end_meridiem"]=='PM':
+if duty_time[duty_type]["start_meridiem"]=='PM':
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[4]/div[1]/div[1]/div[1]').click()
     time.sleep(delay)
     driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[4]/div[2]/div[2]').click()
     time.sleep(delay)
 
+#End time
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/input').send_keys(duty_time[duty_type]["end_hour"])
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[3]/div/div[1]/div/div[1]/input').send_keys('00')
+if duty_time[duty_type]["end_meridiem"]=='PM':
+    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[4]/div[1]/div[1]/div[1]').click()
+    time.sleep(delay)
+    driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[4]/div[2]/div[2]').click()
+    time.sleep(delay)
+
 # Phone duty check
 if phone_duty:
-    button = driver.find_element_by_xpath('//*[@id="i26"]/div[3]')
+    button = driver.find_element_by_xpath('//*[@id="i30"]/div[3]')
     driver.execute_script("arguments[0].click();", button)
 else:
-    button = driver.find_element_by_xpath('//*[@id="i29"]/div[3]')
+    button = driver.find_element_by_xpath('//*[@id="i33"]/div[3]')
     driver.execute_script("arguments[0].click();", button)
 
 # Duty type check
-driver.find_element_by_xpath('//*[@id="i{0}"]/div[2]'.format(37+3*duty_types[duty_type])).click()
+driver.find_element_by_xpath('//*[@id="i{0}"]/div[2]'.format(41+3*duty_types[duty_type])).click()
 
 # Next
-button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div/div[2]')
+button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/div[2]')
 driver.execute_script("arguments[0].click();", button)
 time.sleep(delay)
 
 # Community Building
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(resident1_info)
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(resident2_info)
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(resident_issue)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(resident_info)
 
 # Next
-button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div[2]/span')
+button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div[2]/span')
 driver.execute_script("arguments[0].click();", button)
 time.sleep(delay)
 
 # Committee
-button = driver.find_element_by_xpath('//*[@id="i{0}"]/div[3]'.format(5+3*commitees[commitee]))
+button = driver.find_element_by_xpath('//*[@id="i{0}"]/div[3]'.format(9+3*commitees[commitee]))
 driver.execute_script("arguments[0].click();", button)
 
 # Upcoming committee event
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input').send_keys(commitee_event)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div/div[1]/input').send_keys(commitee_event)
 
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(event_progress)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(event_progress)
 
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(event_issue)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(event_issue)
 
 # Next
 button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div[2]/span')
@@ -231,13 +220,13 @@ time.sleep(delay)
 
 # Maintenance issue
 if maintenance_issue:
-    button = driver.find_element_by_xpath('//*[@id="i8"]/div[3]')
+    button = driver.find_element_by_xpath('//*[@id="i12"]/div[3]')
     driver.execute_script("arguments[0].click();", button)
 else:
-    button = driver.find_element_by_xpath('//*[@id="i5"]/div[3]')
+    button = driver.find_element_by_xpath('//*[@id="i9"]/div[3]')
     driver.execute_script("arguments[0].click();", button)
 
-driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(maintenance_detail)
+driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div[2]/textarea').send_keys(maintenance_detail)
 
 # Next
 button = driver.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div[2]/span')
@@ -246,6 +235,6 @@ time.sleep(delay)
 
 # Feelings
 for item in feeling:
-    driver.find_element_by_xpath('//*[@id="i{}"]/div[2]'.format(6+3*feelings[item])).click()
+    driver.find_element_by_xpath('//*[@id="i{}"]/div[2]'.format(10+3*feelings[item])).click()
 
 print("DONE... %.2fs" % (time.time()-start))
