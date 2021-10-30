@@ -54,16 +54,19 @@ def nonempty_freetext(question):
         result = enquiries.freetext(question)
     return result
 
-
-"""MAIN LOOP"""
-
-while True:
-    # Clear prompt
+def clear():
     if platform.system() == "Windows":
         os.system('cls')
     else:
         os.system('clear')
     print(DIM+"Copyright (C) 2021, Kyungbae Min <kyungbae.min@stonybrook.edu>"+DEFAULT)
+
+
+"""MAIN LOOP"""
+
+while True:
+    # Clear prompt
+    clear()
 
     # Duty type
     duty_type = enquiries.choose('Choose duty-type: ', duty_types.keys())
