@@ -59,7 +59,7 @@ def clear():
         os.system('cls')
     else:
         os.system('clear')
-    print(DIM+"Copyright (C) 2021, Kyungbae Min <kyungbae.min@stonybrook.edu>"+DEFAULT)
+    print(DIM+"© 2021. (Kyungbae Min) all rights reserved"+DEFAULT)
 
 
 """MAIN LOOP"""
